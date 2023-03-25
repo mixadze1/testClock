@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets._Scripts.Application
 {
-    public class ButtonAalrm : MonoBehaviour
+    public class ButtonAlarm : MonoBehaviour
     {
         [SerializeField] private RectTransform _alarmView;
 
