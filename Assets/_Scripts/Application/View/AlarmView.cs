@@ -9,7 +9,7 @@ namespace Assets._Scripts.Application.View
 {
     public class AlarmView : MonoBehaviour
     {
-        [Header("AlarmArrow")]
+        [Header("AlarmArrow")] // if more window we are can create create class ArrowWindow and InputWindow and etc
         public HourAlarmArrow Hour;
         public MinuteAlarmArrow Minute;
         public SecondAlarmArrow Second;

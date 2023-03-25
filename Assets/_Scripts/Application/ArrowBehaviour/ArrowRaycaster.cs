@@ -1,8 +1,6 @@
 using Assets._Scripts.Application.View;
 using Assets._Scripts.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,15 +10,16 @@ namespace Assets._Scripts.Application.ArrowBehaviour
     public class ArrowRaycaster : MonoBehaviour
     {
         [SerializeField] private ViewAlarmRaycastTime _viewAlarmText;
-
-        [SerializeField] private GraphicRaycaster m_Raycaster;
-        [SerializeField] private EventSystem m_EventSystem;
+        [SerializeField] private GraphicRaycaster _graphicRaycaster;
+        [SerializeField] private EventSystem _eventSystem;
 
         private Camera _camera;
 
-        private PointerEventData m_PointerEventData;
+        private PointerEventData _pointerEventData;
 
         private IAlarmBehaviour _alarmBehaviour;
+
+        private float _offsetRotation = 90;
 
         public void Awake()
         {
@@ -61,32 +60,33 @@ namespace Assets._Scripts.Application.ArrowBehaviour
             if (_alarmBehaviour == null)
                 return;
 
-            Debug.Log("SetTime");
             _alarmBehaviour.SetTime(_alarmBehaviour.GetParentTransform());
             _viewAlarmText.UpdateView();
         }
 
         private void DisableRaycast()
         {
-            _alarmBehaviour = null;
+            _alarmBehaviour = default;
         }
 
         private void RotationArrow()
         {
             var parent = _alarmBehaviour.GetParentTransform();
             var dir = Input.mousePosition - _camera.WorldToScreenPoint(parent.position);
-            var rotation = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            var rotation = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - _offsetRotation;
             parent.rotation = Quaternion.AngleAxis(rotation, Vector3.forward);
-            parent.rotation = Quaternion.Euler(parent.rotation.eulerAngles.x, parent.rotation.eulerAngles.y, parent.rotation.eulerAngles.z - 90);
-            Debug.Log(parent.rotation.eulerAngles);
         }
 
         private List<RaycastResult> GetRaycastUI()
         {
-            m_PointerEventData = new PointerEventData(m_EventSystem);
-            m_PointerEventData.position = Input.mousePosition;
+            if (_pointerEventData == null)
+                _pointerEventData = new PointerEventData(_eventSystem);
+
+            _pointerEventData.position = Input.mousePosition;
+
             List<RaycastResult> results = new List<RaycastResult>();
-            m_Raycaster.Raycast(m_PointerEventData, results);
+            _graphicRaycaster.Raycast(_pointerEventData, results);
+
             return results;
         }
     }

@@ -9,6 +9,8 @@ namespace Assets._Scripts.Application.InputFieldBehaviour
         [SerializeField] private TMP_InputField _inputField;
         [SerializeField] private int _value;
 
+        private int _maxMinutevalue = 59;
+
         private string _text;
 
         public int GetTime()
@@ -27,9 +29,9 @@ namespace Assets._Scripts.Application.InputFieldBehaviour
             _value = result;
 
 
-            if (result >= 60)
+            if (result > _maxMinutevalue)
             {
-                _value = 59;
+                _value = _maxMinutevalue;
                 _inputField.text = _value.ToString();
             }
             if (result < 0)

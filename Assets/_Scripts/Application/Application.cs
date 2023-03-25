@@ -81,7 +81,6 @@ namespace Assets._Scripts.Application
             var alarmHandler  = new Alarm(_alarmView);
             _alarmHandler = alarmHandler;
             _datas.Add(alarmHandler);
-            _timeObserver.Add(alarmHandler);
         }
 
         private async Task<DateTime> GetNewTimeResponse()

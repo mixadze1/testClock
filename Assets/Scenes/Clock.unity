@@ -1122,7 +1122,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533670183}
-  m_LocalRotation: {x: -0, y: -0, z: -0.9659258, w: 0.25881907}
+  m_LocalRotation: {x: -0, y: -0, z: -0.74314487, w: 0.66913056}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1811,7 +1811,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827686432}
-  m_LocalRotation: {x: -0, y: -0, z: -0.4539906, w: -0.8910065}
+  m_LocalRotation: {x: -0, y: -0, z: -0.9135455, w: 0.4067366}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2765,7 +2765,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010196126}
-  m_LocalRotation: {x: -0, y: -0, z: 0.86602545, w: -0.4999999}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9659259, w: -0.25881898}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4379,8 +4379,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewAlarmText: {fileID: 1868192810}
-  m_Raycaster: {fileID: 1479156871}
-  m_EventSystem: {fileID: 354294701}
+  _graphicRaycaster: {fileID: 1479156871}
+  _eventSystem: {fileID: 354294701}
 --- !u!1 &1868192806
 GameObject:
   m_ObjectHideFlags: 0

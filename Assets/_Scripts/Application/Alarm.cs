@@ -7,14 +7,12 @@ using UnityEngine;
 
 namespace Assets._Scripts.Application
 {
-    public class Alarm : ITimeObserver, IDataAlarm, IAlarmHandler
+    public class Alarm : IDataAlarm, IAlarmHandler
     {
         private SaveData _saveData;
         private DataAlarm _alarmData;
 
         private AlarmView _alarmView;
-
-        private DateTime _time;
 
         public List<IAlarmBehaviour> AlarmBehaviourArrow = new List<IAlarmBehaviour>();
 
@@ -30,11 +28,6 @@ namespace Assets._Scripts.Application
             AlarmBehaviourArrow.Add(_alarmView.Hour);
             AlarmBehaviourArrow.Add(_alarmView.Minute);
             AlarmBehaviourArrow.Add(_alarmView.Second);
-        }
-
-        public void InitializeCorrectTime(DateTime time)
-        {
-            _time = time;
         }
 
         private void InitializeAlarmArrow(DateTime time)

@@ -25,7 +25,7 @@ namespace Assets._Scripts.Application
 
         public void InitializeCorrectTime(DateTime time)
         {
-            Debug.Log("SetNewTime");
+            Debug.Log("SetCorrectTime");
             _time = time;
             Updater();
         }
