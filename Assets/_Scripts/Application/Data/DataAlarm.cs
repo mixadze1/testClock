@@ -17,7 +17,6 @@ namespace Assets._Scripts.Application.Data
         public DateTime GetCorrectTime()
         {
             DateTime dateTime = DateTime.ParseExact(AlarmTime, "yyyy-MM-dd'T'HH:mm:ss.fffffffzzz", CultureInfo.InvariantCulture);
-            Debug.Log(dateTime);
             return dateTime;
         }
     }

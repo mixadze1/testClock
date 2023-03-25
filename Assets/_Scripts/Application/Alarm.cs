@@ -87,7 +87,6 @@ namespace Assets._Scripts.Application
         private void EnableAlarm(DateTime time)
         {
             var alarmTime = _alarmData.GetCorrectTime();
-            Debug.Log(alarmTime.Hour);
             SetAlarm(alarmTime.Hour, alarmTime.Minute, alarmTime.Second);
             InitializeAlarmArrow(time);
         }

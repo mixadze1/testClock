@@ -21,7 +21,6 @@ namespace Assets._Scripts.Application.InputFieldBehaviour
         public void SetTime()
         {
             _text = _inputField.text;
-            Debug.Log(_text);
             if (string.IsNullOrEmpty(_text))
                 return;
 

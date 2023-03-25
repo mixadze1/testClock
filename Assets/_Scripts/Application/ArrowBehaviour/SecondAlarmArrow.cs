@@ -7,6 +7,7 @@ namespace Assets._Scripts.Application.ArrowBehaviour
 {
     public class SecondAlarmArrow : AlarmArrow, IAlarmBehaviour
     {
+        private float _maxTime = 60;
         public int GetTime() => _time;
 
         public void Initialize(DateTime dateTime, AlarmView clockView)
@@ -19,9 +20,8 @@ namespace Assets._Scripts.Application.ArrowBehaviour
         public void SetTime(Transform clockView)
         {
             _time = (int)((clockView.rotation.eulerAngles.z - 360) / -6);
-            if (_time == 60)
+            if (_time == _maxTime)
                 _time = 0;
-            Debug.Log(_time + clockView.rotation.z);
         }
     }
 }
