@@ -1,11 +1,15 @@
+using Assets._Scripts.Application.View;
 using System;
 using UnityEngine;
 
-public interface IAlarmBehaviour
+namespace Assets._Scripts.Interfaces
 {
-   Transform GetParentTransform();
-    void SetTime(Transform clockView);
+    public interface IAlarmBehaviour
+    {
+        Transform GetParentTransform();
+        void SetTime(Transform clockView);
 
-    int GetTime();
-    void Initialize(DateTime dateTime, AlarmView alarmView);
+        int GetTime();
+        void Initialize(DateTime dateTime, AlarmView alarmView);
+    }
 }

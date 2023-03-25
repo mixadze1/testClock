@@ -1,3 +1,4 @@
+using Assets._Scripts.Application.View;
 using UnityEngine;
 
 namespace Assets._Scripts.Application

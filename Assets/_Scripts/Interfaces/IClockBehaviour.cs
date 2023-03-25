@@ -1,9 +1,10 @@
+using Assets._Scripts.Application.View;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public interface IClockBehaviour 
+namespace Assets._Scripts.Interfaces
 {
-    void UpdateTime(DateTime time, ClockView transform);
+    public interface IClockBehaviour
+    {
+        void UpdateTime(DateTime time, ClockView transform);
+    }
 }

@@ -1,105 +1,105 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Text.RegularExpressions;
-using System.Globalization;
+using Assets._Scripts.Interfaces;
 
-public class TimeService : ITimeServiceHandler
+namespace Assets._Scripts.Application
 {
-    private IApplicationHandler _applicationHandler;
-
-    private List<string> _urls = new List<string>();
-
-    public TimeService(IApplicationHandler applicationHandler)
+    public class TimeService : ITimeServiceHandler
     {
-        _applicationHandler = applicationHandler;
-        InitializeUrls();
-        ResponseNewTimeRemainingHours(hour: 1);
-    }
+        private IApplicationHandler _applicationHandler;
 
-    public async Task<DateTime> GetTime()
-    {
-        var dateTime = await ResponseTime();
-        return dateTime;
-    }
+        private List<string> _urls = new List<string>();
 
-    private void InitializeUrls()
-    {
-        _urls.Add("http://worldtimeapi.org/api/timezone/Europe/Moscow");
-        _urls.Add("https://www.timeapi.io/api/Time/current/zone?timeZone=Europe/Moscow");
-    }
-
-    private async void ResponseNewTimeRemainingHours(int hour)
-    {
-        var millisecondsInHour = 3600000;
-        var parseHourToMiliSecond = hour * millisecondsInHour;
-
-        while (true)
+        public TimeService(IApplicationHandler applicationHandler)
         {
-            await Task.Delay(parseHourToMiliSecond);
-            var newTime = await GetTime();
-            _applicationHandler.SetResponseTime(newTime);
+            _applicationHandler = applicationHandler;
+            InitializeUrls();
+            ResponseNewTimeRemainingHours(hour: 1);
         }
-    }
 
-    public async Task<DateTime> ResponseTime()
-    {
-        foreach (string url in _urls)
+        public async Task<DateTime> GetTime()
         {
-            var responseBody = await RequestUrl(url);
-            if (responseBody != null)
+            var dateTime = await ResponseTime();
+            return dateTime;
+        }
+
+        private void InitializeUrls()
+        {
+            _urls.Add("http://worldtimeapi.org/api/timezone/Europe/Moscow");
+            _urls.Add("https://www.timeapi.io/api/Time/current/zone?timeZone=Europe/Moscow");
+        }
+
+        private async void ResponseNewTimeRemainingHours(int hour)
+        {
+            var millisecondsInHour = 3600000;
+            var parseHourToMiliSecond = hour * millisecondsInHour;
+
+            while (true)
             {
-                var response = ParseToDateTime(responseBody);
-                if (response != null)
-                    return response;
-            }           
+                await Task.Delay(parseHourToMiliSecond);
+                var newTime = await GetTime();
+                _applicationHandler.SetResponseTime(newTime);
+            }
         }
-        return DateTime.Now;
-    }
 
-    private async Task<string> RequestUrl(string url)
-    {
-        try
+        public async Task<DateTime> ResponseTime()
         {
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-            return responseBody;
+            foreach (string url in _urls)
+            {
+                var responseBody = await RequestUrl(url);
+                if (responseBody != null)
+                {
+                    var response = ParseToDateTime(responseBody);
+                    if (response != null)
+                        return response;
+                }
+            }
+            return DateTime.Now;
         }
-        catch (Exception ex)
+
+        private async Task<string> RequestUrl(string url)
         {
-             Debug.Log("Exception RequestUrl, maybe you are not have internet connection. " +
-                "\n What happen:\n" + ex.ToString() + "\n\n Use DateTime.Now: " + DateTime.Now);
-            return null;
+            try
+            {
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+                return responseBody;
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("Exception RequestUrl, maybe you are not have internet connection. " +
+                   "\n What happen:\n" + ex.ToString() + "\n\n Use DateTime.Now: " + DateTime.Now);
+                return null;
+            }
+
         }
-       
+
+        private DateTime ParseToDateTime(string responseBody)
+        {
+            DateTime dateTime;
+
+            var response = JsonUtility.FromJson<TimeData>(responseBody);
+            bool isDateTimeValid = DateTime.TryParse(response.Datetime, out dateTime);
+            if (isDateTimeValid)
+                return dateTime;
+
+            isDateTimeValid = DateTime.TryParse(response.datetime, out dateTime);
+            if (isDateTimeValid)
+                return dateTime;
+
+            Debug.Log("IsNotValidDateUrl, use DateTime.Now");
+            return DateTime.Now;
+        }
     }
 
-    private DateTime ParseToDateTime(string responseBody)
+    class TimeData
     {
-        DateTime dateTime;
-
-        var response = JsonUtility.FromJson<TimeData>(responseBody);
-        bool isDateTimeValid = DateTime.TryParse(response.Datetime, out dateTime);
-        if (isDateTimeValid)
-            return dateTime;
-
-        isDateTimeValid = DateTime.TryParse(response.datetime, out dateTime);
-        if (isDateTimeValid)
-            return dateTime;
-
-        Debug.Log("IsNotValidDateUrl, use DateTime.Now");
-        return DateTime.Now;
+        public string Datetime;
+        public string datetime;
     }
-}
-
-class TimeData
-{
-    public string Datetime;
-    public string datetime;
 }

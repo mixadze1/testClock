@@ -1,41 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets._Scripts.Interfaces;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class HourInput : MonoBehaviour, IInputBehaviour
+namespace Assets._Scripts.Application.InputFieldBehaviour
 {
-    [SerializeField] private TMP_InputField _inputField;
-    [SerializeField] private int _value;
-
-    private string _text;
-
-    public int GetTime()
+    public class HourInput : MonoBehaviour, IAlarmInputBehaviour
     {
-        return _value;
-    }
+        [SerializeField] private TMP_InputField _inputField;
+        [SerializeField] private int _value;
 
-    public void SetTime()
-    {
-        _text = _inputField.text;
-        Debug.Log(_text);
-        if (string.IsNullOrEmpty(_text))
-            return;
+        private string _text;
 
-        int result = int.Parse(_text);
-        _value = result;
-   
-
-        if (result >= 24)
+        public int GetTime()
         {
-            _value = 23;
-            _inputField.text = _value.ToString();
+            return _value;
         }
-        if (result < 0)
+
+        public void SetTime()
         {
-            _value = 0;
-            _inputField.text = _value.ToString();
+            _text = _inputField.text;
+            Debug.Log(_text);
+            if (string.IsNullOrEmpty(_text))
+                return;
+
+            int result = int.Parse(_text);
+            _value = result;
+
+            if (result >= 24)
+            {
+                _value = 23;
+                _inputField.text = _value.ToString();
+            }
+            if (result < 0)
+            {
+                _value = 0;
+                _inputField.text = _value.ToString();
+            }
         }
     }
 }

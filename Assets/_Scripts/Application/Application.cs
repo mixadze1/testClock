@@ -1,7 +1,9 @@
 using System;
+using Assets._Scripts.Application.Data;
+using Assets._Scripts.Application.View;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
+using Assets._Scripts.Interfaces;
 
 namespace Assets._Scripts.Application
 {
@@ -12,12 +14,11 @@ namespace Assets._Scripts.Application
         private ViewAlarmRaycastTime _alarmRaycastTime;
 
         private Clock _clock;
+        private IAlarmHandler _alarmHandler;
 
         private List<ITimeObserver> _timeObserver = new List<ITimeObserver>();
 
         private List<IDataAlarm> _datas = new List<IDataAlarm>();
-
-        private IAlarmHandler _alarmHandler;
 
         private SaveData _saveData;
         private DataAlarm _alarmData;

@@ -1,6 +1,9 @@
 ﻿using System;
 
-public interface IClockHandler
+namespace Assets._Scripts.Interfaces
 {
-    void InitializeCorrectTime(DateTime time);
+    public interface IClockHandler
+    {
+        void InitializeCorrectTime(DateTime time);
+    }
 }

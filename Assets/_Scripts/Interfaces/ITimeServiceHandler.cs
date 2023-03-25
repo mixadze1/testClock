@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-public interface ITimeServiceHandler
+namespace Assets._Scripts.Interfaces
 {
-    Task<DateTime> GetTime();
+    public interface ITimeServiceHandler
+    {
+        Task<DateTime> GetTime();
+    }
 }
